@@ -30,6 +30,13 @@ def main():
 	canny_edge(img)
 	prewitt_edge(img)
 	sobel_edge(img)
+	#Binarising the image
+	cv2.imwrite('HPIM0942(2).png',img)
+	#OTSU Binarization
+	ret3,binary_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+	#th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+	cv2.imwrite('binarised_img.png',binary_img)
+	
 
 if __name__=='__main__':
 	main()
