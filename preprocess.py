@@ -54,9 +54,10 @@ def main():
 			break
 
 	print(detected_plate_contour)
-
+	#To check all contours drawn
+	cv2.drawContours(img,cnts,-1,(0,0,255),3)
 	# Drawing the selected contour on the original image
-	cv2.drawContours(img,[detected_plate_contour], -1, (0,255,0), 3)
+	cv2.drawContours(img,[detected_plate_contour], -1, (3,0,0), 3)
 	cv2.imshow("Number plate", img)
 
 	cv2.waitKey(0)
