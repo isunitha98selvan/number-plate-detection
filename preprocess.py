@@ -1,4 +1,8 @@
+from PIL import Image
+import pytesseract
+import argparse
 import cv2
+import os
 import numpy as np
 
 def canny_edge(image):
@@ -58,7 +62,17 @@ def main():
 	cv2.drawContours(img,cnts,-1,(0,0,255),3)
 	# Drawing the selected contour on the original image
 	cv2.drawContours(img,[detected_plate_contour], -1, (3,0,0), 3)
-	cv2.imshow("Number plate", img)
+
+	''' Reading text in an image '''
+	crop_img = img[detected_plate_contour[0][0][1]-10:detected_plate_contour[2][0][1]+10, detected_plate_contour[0][0][0]-10:detected_plate_contour[2][0][0]+10]
+	cv2.imshow("Number plate", crop_img)
+	cv2.imwrite('extracted_img.png',crop_img)
+
+	image_plate = cv2.imread('extracted_img.png')
+	text = pytesseract.image_to_string(Image.open('extracted_img.png'))
+	print(text)
+
+	#img
 
 	cv2.waitKey(0)
 
