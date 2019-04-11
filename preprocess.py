@@ -29,7 +29,7 @@ def sobel_edge(image):
 
 def main():
 	#loads image in grayscale
-	img=cv2.imread('car.jpg')
+	img=cv2.imread('res/car2.jpg')
 	img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 	
 	cv2.imwrite('HPIM0942(1).png',img)
@@ -44,7 +44,7 @@ def main():
 	cv2.imwrite('binarised_img.png',binary_img)
 	#Finding contours
 	(cnts, _) = cv2.findContours(binary_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-	cnts=sorted(cnts, key = cv2.contourArea, reverse = True)[0:2] 
+	cnts=sorted(cnts, key = cv2.contourArea, reverse = True)[0:3] 
 	detected_plate_contour = None 
 	
 
@@ -52,12 +52,12 @@ def main():
 	count = 0
 	for c in cnts:
 		perimeter = cv2.arcLength(c, True)
-		approx = cv2.approxPolyDP(c, 0.02 * perimeter, True)
+		approx = cv2.approxPolyDP(c, 0.03 * perimeter, True)
 		if len(approx) == 4:  # Select the contour with 4 corners
 			detected_plate_contour = approx 
 			break
 
-	print(detected_plate_contour)
+	#drawn_contours = cv2.drawContours(img, [plate_contour], -1, (0, 255, 0), 3)
 	#To check all contours drawn
 	cv2.drawContours(img,cnts,-1,(0,0,255),3)
 	# Drawing the selected contour on the original image
