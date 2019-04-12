@@ -11,11 +11,7 @@ def preprocess(img):
 	gray = cv2.cvtColor(imgBlurred, cv2.COLOR_BGR2GRAY)
 
 	sobelx = cv2.Sobel(gray,cv2.CV_8U,1,0,ksize=3)
-	#cv2.imshow("Sobel",sobelx)
-	#cv2.waitKey(0)
 	ret2,threshold_img = cv2.threshold(sobelx,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-	#cv2.imshow("Threshold",threshold_img)
-	#cv2.waitKey(0)
 	return threshold_img
 
 def cleanPlate(plate):
@@ -100,8 +96,6 @@ def validateRotationAndRatio(rect):
 	else:
 		return True
 
-
-
 def cleanAndRead(img,contours):
 	#count=0
 	for i,cnt in enumerate(contours):
@@ -131,8 +125,6 @@ def cleanAndRead(img,contours):
 
 	#print "No. of final cont : " , count
 
-
-
 if __name__ == '__main__':
 	
 	#img = cv2.imread("testData/Final.JPG")
@@ -146,6 +138,5 @@ if __name__ == '__main__':
 		# cv2.drawContours(img, contours, -1, (0,255,0), 1)
 		# cv2.imshow("Contours",img)
 		# cv2.waitKey(0)
-
 
 	cleanAndRead(img,contours)
